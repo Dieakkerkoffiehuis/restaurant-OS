@@ -1527,6 +1527,51 @@ showPage = function(page, el) {
   if (page === 'settings') renderThemes();
 };
 
+
+function submitIncome(){
+  var dateRaw=document.getElementById('inc-date').value;
+  var cat=document.getElementById('inc-cat').value;
+  var desc=document.getElementById('inc-desc').value.trim();
+  var amount=parseFloat(document.getElementById('inc-amount').value);
+  if(!dateRaw){alert('Please select a date.');return;}
+  if(!desc){alert('Please enter a description.');return;}
+  if(!amount||amount<=0){alert('Please enter a valid amount.');return;}
+  var d=new Date(dateRaw);
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var dateLabel=d.getDate()+' '+months[d.getMonth()];
+  incomeEntries.push({date:dateLabel,desc:desc,cat:cat,amount:'R '+amount.toLocaleString('en-ZA',{minimumFractionDigits:0})});
+  renderIncome();
+  closeModal('modal-income');
+  document.getElementById('inc-date').value='';
+  document.getElementById('inc-desc').value='';
+  document.getElementById('inc-amount').value='';
+  var hdr=document.querySelector('#acc-tab-income .card-header h2');
+  if(hdr){hdr.style.color='#16a34a';setTimeout(function(){hdr.style.color='';},1500);}
+}
+
+function submitExpense(){
+  var dateRaw=document.getElementById('exp-date').value;
+  var cat=document.getElementById('exp-cat').value;
+  var desc=document.getElementById('exp-desc').value.trim();
+  var amount=parseFloat(document.getElementById('exp-amount').value);
+  var status=document.getElementById('exp-status').value;
+  if(!dateRaw){alert('Please select a date.');return;}
+  if(!desc){alert('Please enter a supplier or description.');return;}
+  if(!amount||amount<=0){alert('Please enter a valid amount.');return;}
+  var d=new Date(dateRaw);
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var dateLabel=d.getDate()+' '+months[d.getMonth()];
+  expenseEntries.push({date:dateLabel,desc:desc,cat:cat,amount:'R '+amount.toLocaleString('en-ZA',{minimumFractionDigits:0}),status:status});
+  renderExpenses();
+  closeModal('modal-expense');
+  document.getElementById('exp-date').value='';
+  document.getElementById('exp-desc').value='';
+  document.getElementById('exp-amount').value='';
+  document.getElementById('exp-invoice').value='';
+  var hdr=document.querySelector('#acc-tab-expenses .card-header h2');
+  if(hdr){hdr.style.color='#16a34a';setTimeout(function(){hdr.style.color='';},1500);}
+}
+
 </script>
 
 <!-- ===== SETTINGS PAGE ===== -->
