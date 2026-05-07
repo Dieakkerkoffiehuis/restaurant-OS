@@ -11,6 +11,7 @@
   --sidebar-bg: #1e293b;
   --sidebar-text: #94a3b8;
   --sidebar-active: #253348;
+  --sidebar-highlight: #f97316;
   --sidebar-border: #334155;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -24,8 +25,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4f8;color:#1e293
 #sidebar nav{flex:1;padding:12px 0}
 #sidebar nav .section-label{font-size:10px;font-weight:600;letter-spacing:1px;color:#475569;padding:14px 18px 6px;text-transform:uppercase}
 #sidebar nav a{display:flex;align-items:center;gap:10px;padding:9px 18px;color:var(--sidebar-text);text-decoration:none;font-size:13.5px;font-weight:500;border-left:3px solid transparent;transition:all .15s}
-#sidebar nav a:hover{background:var(--sidebar-active);color:#e2e8f0}
-#sidebar nav a.active{background:#253348;color:#fff;border-left-color:var(--accent)}
+#sidebar nav a:hover{background:rgba(255,255,255,0.08);color:#ffffff;font-weight:600}
+#sidebar nav a.active{background:rgba(255,255,255,0.1);color:#fff;font-weight:700;border-left-color:var(--sidebar-highlight)}
 #sidebar nav a .nav-icon{width:18px;text-align:center;font-size:15px}
 #sidebar .sidebar-footer{padding:14px 18px;border-top:1px solid var(--sidebar-border);font-size:12px;color:#475569}
 #sidebar .sidebar-footer strong{display:block;color:#94a3b8;font-size:13px}
@@ -581,28 +582,9 @@ tr:hover td{background:#fafafa}
 
       <div id="acc-tab-pl" style="display:none">
         <div class="card">
-          <div class="card-header"><h2>Profit & Loss Report — May 2026</h2><button class="btn btn-secondary btn-sm">📄 Export PDF</button></div>
+          <div class="card-header"><h2>Profit &amp; Loss Report — May 2026</h2><button class="btn btn-secondary btn-sm" onclick="window.print()">📄 Export PDF</button></div>
           <div class="card-body">
-            <div class="payslip">
-              <div style="font-weight:800;font-size:14px;margin-bottom:10px;color:#f97316">THE GRAND PLATE — P&L Statement</div>
-              <div style="font-weight:700;margin:10px 0 4px;color:#64748b;font-size:11px;text-transform:uppercase">Revenue</div>
-              <div class="payslip-row"><span>Food Sales</span><span>R 138,400</span></div>
-              <div class="payslip-row"><span>Beverage Sales</span><span>R 42,000</span></div>
-              <div class="payslip-row"><span>Events / Private Hire</span><span>R 6,000</span></div>
-              <div class="payslip-row" style="font-weight:700"><span>Total Revenue</span><span>R 186,400</span></div>
-              <div style="font-weight:700;margin:14px 0 4px;color:#64748b;font-size:11px;text-transform:uppercase">Cost of Goods Sold</div>
-              <div class="payslip-row"><span>Food Cost</span><span>R 52,200</span></div>
-              <div class="payslip-row"><span>Beverage Cost</span><span>R 12,600</span></div>
-              <div class="payslip-row" style="font-weight:700"><span>Gross Profit</span><span style="color:#16a34a">R 121,600</span></div>
-              <div style="font-weight:700;margin:14px 0 4px;color:#64748b;font-size:11px;text-transform:uppercase">Operating Expenses</div>
-              <div class="payslip-row"><span>Payroll</span><span>R 87,500</span></div>
-              <div class="payslip-row"><span>Rent</span><span>R 18,000</span></div>
-              <div class="payslip-row"><span>Utilities</span><span>R 6,200</span></div>
-              <div class="payslip-row"><span>Packaging & Cleaning</span><span>R 4,800</span></div>
-              <div class="payslip-row"><span>Marketing</span><span>R 2,900</span></div>
-              <div class="payslip-row" style="font-weight:700"><span>Total OpEx</span><span>R 119,400</span></div>
-              <div class="payslip-row" style="font-weight:800;font-size:15px;color:#16a34a"><span>NET PROFIT</span><span>R 52,200 (28%)</span></div>
-            </div>
+            <div class="payslip" id="pl-body"><!-- rendered by renderPL() --></div>
           </div>
         </div>
       </div>
@@ -939,6 +921,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderIncome();
   renderExpenses();
   renderExpBreakdown();
+  renderPL();
 });
 
 // ===== NAVIGATION =====
@@ -1294,6 +1277,7 @@ function showAccTab(tab,btn){
   });
   document.querySelectorAll('#acc-tabs button').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
+  if(tab==='pl') renderPL();
 }
 function updatePeriod(p){console.log('Period:',p);}
 // ===== SOP DATA =====
@@ -1503,20 +1487,24 @@ function applyTheme(i) {
   root.style.setProperty('--sidebar-bg', t.sidebar);
   root.style.setProperty('--sidebar-active', t.sidebarActive);
   root.style.setProperty('--sidebar-border', t.sidebarBorder);
+  root.style.setProperty('--sidebar-highlight', t.accent);
+  var hEl=document.getElementById('custom-highlight'); if(hEl) hEl.value=t.accent;
   document.getElementById('custom-accent').value = t.accent;
   document.getElementById('custom-sidebar').value = t.sidebar;
   renderThemes();
 }
 
 function applyCustom() {
-  const accent = document.getElementById('custom-accent').value;
-  const sidebar = document.getElementById('custom-sidebar').value;
+  const accent    = document.getElementById('custom-accent').value;
+  const sidebar   = document.getElementById('custom-sidebar').value;
+  const highlight = document.getElementById('custom-highlight') ? document.getElementById('custom-highlight').value : accent;
   activeTheme = -1;
   const root = document.documentElement;
   root.style.setProperty('--accent', accent);
   root.style.setProperty('--accent-dark', accent);
   root.style.setProperty('--sidebar-bg', sidebar);
-  root.style.setProperty('--sidebar-active', sidebar + 'cc');
+  root.style.setProperty('--sidebar-active', 'rgba(255,255,255,0.1)');
+  root.style.setProperty('--sidebar-highlight', highlight);
   renderThemes();
 }
 
@@ -1527,6 +1515,97 @@ showPage = function(page, el) {
   if (page === 'settings') renderThemes();
 };
 
+
+
+// Helper: parse "R 3,240" -> 3240
+function parseAmt(str){ return parseFloat((str||'0').replace(/[^0-9.]/g,''))||0; }
+
+function fmt(n){ return 'R '+Math.round(n).toLocaleString('en-ZA'); }
+
+function renderPL(){
+  // ── Income by category ──────────────────────────────────────────────────
+  var incCats = {};
+  incomeEntries.forEach(function(e){
+    var k = e.cat || 'Other';
+    incCats[k] = (incCats[k]||0) + parseAmt(e.amount);
+  });
+  var totalRevenue = Object.values(incCats).reduce(function(s,v){return s+v;},0);
+
+  // ── Expenses by category ─────────────────────────────────────────────────
+  var expCats = {};
+  expenseEntries.forEach(function(e){
+    var k = e.cat || 'Other';
+    expCats[k] = (expCats[k]||0) + parseAmt(e.amount);
+  });
+
+  var foodCost   = expCats['Food Cost']     || 0;
+  var bevCost    = expCats['Beverage Cost'] || 0;
+  var cogs       = foodCost + bevCost;
+  var grossProfit = totalRevenue - cogs;
+
+  var opexCats   = ['Payroll','Rent','Utilities','Packaging','Marketing','Other'];
+  var totalOpex  = 0;
+  opexCats.forEach(function(k){ totalOpex += (expCats[k]||0); });
+  // Catch anything else as Other opex
+  Object.keys(expCats).forEach(function(k){
+    if(k!=='Food Cost'&&k!=='Beverage Cost'&&opexCats.indexOf(k)===-1){
+      totalOpex += expCats[k];
+    }
+  });
+
+  var netProfit  = grossProfit - totalOpex;
+  var margin     = totalRevenue > 0 ? Math.round((netProfit/totalRevenue)*100) : 0;
+  var profitColor = netProfit >= 0 ? '#16a34a' : '#dc2626';
+
+  function section(label){ return '<div style="font-weight:700;margin:14px 0 4px;color:#64748b;font-size:11px;text-transform:uppercase">'+label+'</div>'; }
+  function row(label,val,bold,color){
+    var s = bold ? 'font-weight:700;' : '';
+    var c = color ? 'color:'+color+';' : '';
+    return '<div class="payslip-row" style="'+s+c+'"><span>'+label+'</span><span>'+val+'</span></div>';
+  }
+
+  var html = '<div style="font-weight:800;font-size:14px;margin-bottom:10px;color:var(--accent)">THE GRAND PLATE — P&amp;L Statement</div>';
+
+  // Revenue
+  html += section('Revenue');
+  Object.keys(incCats).forEach(function(k){ html += row(k, fmt(incCats[k])); });
+  html += row('Total Revenue', fmt(totalRevenue), true);
+
+  // COGS
+  html += section('Cost of Goods Sold');
+  if(foodCost)  html += row('Food Cost',     fmt(foodCost));
+  if(bevCost)   html += row('Beverage Cost', fmt(bevCost));
+  html += row('Gross Profit', fmt(grossProfit), true, grossProfit>=0?'#16a34a':'#dc2626');
+
+  // OpEx
+  html += section('Operating Expenses');
+  opexCats.forEach(function(k){
+    var v = expCats[k] || 0;
+    // Also add unlisted keys to Other
+    if(k==='Other'){
+      Object.keys(expCats).forEach(function(x){
+        if(x!=='Food Cost'&&x!=='Beverage Cost'&&opexCats.indexOf(x)===-1) v+=expCats[x];
+      });
+    }
+    if(v) html += row(k, fmt(v));
+  });
+  html += row('Total OpEx', fmt(totalOpex), true);
+
+  // Net
+  html += '<div class="payslip-row" style="font-weight:800;font-size:15px;color:'+profitColor+'"><span>NET PROFIT</span><span>'+fmt(netProfit)+' ('+margin+'%)</span></div>';
+
+  document.getElementById('pl-body').innerHTML = html;
+
+  // Also refresh Summary KPIs
+  var kpis = document.querySelectorAll('#acc-tab-summary .kpi-value');
+  if(kpis.length>=3){
+    kpis[0].textContent = fmt(totalRevenue);
+    var totalExp = cogs + totalOpex;
+    kpis[1].textContent = fmt(totalExp);
+    kpis[2].textContent = fmt(netProfit);
+    kpis[2].style.color = netProfit>=0 ? '#16a34a' : '#dc2626';
+  }
+}
 
 function submitIncome(){
   var dateRaw=document.getElementById('inc-date').value;
@@ -1545,6 +1624,7 @@ function submitIncome(){
   document.getElementById('inc-date').value='';
   document.getElementById('inc-desc').value='';
   document.getElementById('inc-amount').value='';
+  renderPL();
   var hdr=document.querySelector('#acc-tab-income .card-header h2');
   if(hdr){hdr.style.color='#16a34a';setTimeout(function(){hdr.style.color='';},1500);}
 }
@@ -1568,6 +1648,7 @@ function submitExpense(){
   document.getElementById('exp-desc').value='';
   document.getElementById('exp-amount').value='';
   document.getElementById('exp-invoice').value='';
+  renderPL();
   var hdr=document.querySelector('#acc-tab-expenses .card-header h2');
   if(hdr){hdr.style.color='#16a34a';setTimeout(function(){hdr.style.color='';},1500);}
 }
