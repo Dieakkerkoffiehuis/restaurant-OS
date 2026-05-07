@@ -783,15 +783,15 @@ tr:hover td{background:#fafafa}
     <div class="modal-header"><h3>Add Income Entry</h3><button class="modal-close" onclick="closeModal('modal-income')">✕</button></div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group"><label>Date</label><input type="date"></div>
-        <div class="form-group"><label>Category</label><select><option>Food Sales</option><option>Beverage Sales</option><option>Events</option><option>Other</option></select></div>
-        <div class="form-group" style="grid-column:1/-1"><label>Description</label><input type="text" placeholder="Description"></div>
-        <div class="form-group"><label>Amount (R)</label><input type="number" placeholder="0.00"></div>
+        <div class="form-group"><label>Date</label><input type="date" id="inc-date"></div>
+        <div class="form-group"><label>Category</label><select id="inc-cat"><option>Food Sales</option><option>Beverage Sales</option><option>Events</option><option>Other</option></select></div>
+        <div class="form-group" style="grid-column:1/-1"><label>Description</label><input type="text" id="inc-desc" placeholder="Description"></div>
+        <div class="form-group"><label>Amount (R)</label><input type="number" id="inc-amount" placeholder="0.00" min="0" step="0.01"></div>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-secondary" onclick="closeModal('modal-income')">Cancel</button>
-      <button class="btn btn-primary" onclick="closeModal('modal-income');alert('Income entry added!')">Add</button>
+      <button class="btn btn-primary" onclick="submitIncome()">Add Entry</button>
     </div>
   </div>
 </div>
@@ -801,16 +801,17 @@ tr:hover td{background:#fafafa}
     <div class="modal-header"><h3>Add Expense</h3><button class="modal-close" onclick="closeModal('modal-expense')">✕</button></div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group"><label>Date</label><input type="date"></div>
-        <div class="form-group"><label>Category</label><select><option>Food Cost</option><option>Beverage Cost</option><option>Payroll</option><option>Rent</option><option>Utilities</option><option>Packaging</option><option>Marketing</option><option>Other</option></select></div>
-        <div class="form-group" style="grid-column:1/-1"><label>Supplier / Description</label><input type="text" placeholder="Supplier or description"></div>
-        <div class="form-group"><label>Amount (R)</label><input type="number" placeholder="0.00"></div>
-        <div class="form-group"><label>Invoice #</label><input type="text" placeholder="INV-####"></div>
+        <div class="form-group"><label>Date</label><input type="date" id="exp-date"></div>
+        <div class="form-group"><label>Category</label><select id="exp-cat"><option>Food Cost</option><option>Beverage Cost</option><option>Payroll</option><option>Rent</option><option>Utilities</option><option>Packaging</option><option>Marketing</option><option>Other</option></select></div>
+        <div class="form-group" style="grid-column:1/-1"><label>Supplier / Description</label><input type="text" id="exp-desc" placeholder="Supplier or description"></div>
+        <div class="form-group"><label>Amount (R)</label><input type="number" id="exp-amount" placeholder="0.00" min="0" step="0.01"></div>
+        <div class="form-group"><label>Invoice #</label><input type="text" id="exp-invoice" placeholder="INV-####"></div>
+        <div class="form-group"><label>Status</label><select id="exp-status"><option value="paid">Paid</option><option value="pending">Pending</option></select></div>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-secondary" onclick="closeModal('modal-expense')">Cancel</button>
-      <button class="btn btn-primary" onclick="closeModal('modal-expense');alert('Expense added!')">Add</button>
+      <button class="btn btn-primary" onclick="submitExpense()">Add Expense</button>
     </div>
   </div>
 </div>
