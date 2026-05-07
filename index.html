@@ -5,21 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RestaurantOS</title>
 <style>
+:root {
+  --accent: #f97316;
+  --accent-dark: #ea6c0a;
+  --sidebar-bg: #1e293b;
+  --sidebar-text: #94a3b8;
+  --sidebar-active: #253348;
+  --sidebar-border: #334155;
+}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4f8;color:#1e293b;display:flex;height:100vh;overflow:hidden}
 /* SIDEBAR */
-#sidebar{width:240px;background:#1e293b;color:#cbd5e1;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
-#sidebar .logo{padding:20px 18px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #334155}
-#sidebar .logo .icon{width:36px;height:36px;background:#f97316;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+#sidebar{width:240px;background:var(--sidebar-bg);color:var(--sidebar-text);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+#sidebar .logo{padding:20px 18px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--sidebar-border)}
+#sidebar .logo .icon{width:36px;height:36px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
 #sidebar .logo span{font-size:15px;font-weight:700;color:#fff;letter-spacing:.3px}
 #sidebar .logo small{display:block;font-size:10px;font-weight:400;color:#94a3b8;letter-spacing:.5px}
 #sidebar nav{flex:1;padding:12px 0}
 #sidebar nav .section-label{font-size:10px;font-weight:600;letter-spacing:1px;color:#475569;padding:14px 18px 6px;text-transform:uppercase}
-#sidebar nav a{display:flex;align-items:center;gap:10px;padding:9px 18px;color:#94a3b8;text-decoration:none;font-size:13.5px;font-weight:500;border-left:3px solid transparent;transition:all .15s}
-#sidebar nav a:hover{background:#253348;color:#e2e8f0}
-#sidebar nav a.active{background:#253348;color:#fff;border-left-color:#f97316}
+#sidebar nav a{display:flex;align-items:center;gap:10px;padding:9px 18px;color:var(--sidebar-text);text-decoration:none;font-size:13.5px;font-weight:500;border-left:3px solid transparent;transition:all .15s}
+#sidebar nav a:hover{background:var(--sidebar-active);color:#e2e8f0}
+#sidebar nav a.active{background:#253348;color:#fff;border-left-color:var(--accent)}
 #sidebar nav a .nav-icon{width:18px;text-align:center;font-size:15px}
-#sidebar .sidebar-footer{padding:14px 18px;border-top:1px solid #334155;font-size:12px;color:#475569}
+#sidebar .sidebar-footer{padding:14px 18px;border-top:1px solid var(--sidebar-border);font-size:12px;color:#475569}
 #sidebar .sidebar-footer strong{display:block;color:#94a3b8;font-size:13px}
 /* MAIN */
 #main{flex:1;display:flex;flex-direction:column;overflow:hidden}
@@ -51,8 +59,8 @@ tr:last-child td{border-bottom:none}
 tr:hover td{background:#fafafa}
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
-.btn-primary{background:#f97316;color:#fff}
-.btn-primary:hover{background:#ea6c0a}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-dark)}
 .btn-secondary{background:#f1f5f9;color:#374151;border:1px solid #e2e8f0}
 .btn-secondary:hover{background:#e2e8f0}
 .btn-sm{padding:5px 12px;font-size:12px}
@@ -97,10 +105,10 @@ tr:hover td{background:#fafafa}
 .alert-info{background:#dbeafe;border:1px solid #bfdbfe;color:#1e40af}
 /* PROGRESS BAR */
 .progress-bar{height:6px;background:#f1f5f9;border-radius:99px;overflow:hidden;margin-top:4px}
-.progress-bar .fill{height:100%;background:#f97316;border-radius:99px}
+.progress-bar .fill{height:100%;background:var(--accent);border-radius:99px}
 /* MINI CHART */
 .bar-chart{display:flex;align-items:flex-end;gap:5px;height:70px;padding-top:8px}
-.bar-chart .bar{flex:1;background:#f97316;border-radius:4px 4px 0 0;opacity:.85;min-height:4px;transition:opacity .2s;cursor:pointer}
+.bar-chart .bar{flex:1;background:var(--accent);border-radius:4px 4px 0 0;opacity:.85;min-height:4px;transition:opacity .2s;cursor:pointer}
 .bar-chart .bar:hover{opacity:1}
 /* STORE GRID */
 .store-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -115,7 +123,7 @@ tr:hover td{background:#fafafa}
 /* CHECKLIST */
 .checklist-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f8fafc}
 .checklist-item:last-child{border-bottom:none}
-.checklist-item input[type=checkbox]{width:16px;height:16px;accent-color:#f97316;cursor:pointer}
+.checklist-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
 .checklist-item label{font-size:13.5px;color:#374151;cursor:pointer;flex:1}
 .checklist-item label.done{text-decoration:line-through;color:#94a3b8}
 .checklist-item .assigned{font-size:11px;color:#94a3b8}
@@ -166,6 +174,8 @@ tr:hover td{background:#fafafa}
     <a href="#" onclick="showPage('accounting',this)"><span class="nav-icon">📈</span> Accounting</a>
     <div class="section-label">Franchise</div>
     <a href="#" onclick="showPage('franchise',this)"><span class="nav-icon">🏪</span> Franchise Hub</a>
+    <div class="section-label">System</div>
+    <a href="#" onclick="showPage('settings',this)"><span class="nav-icon">⚙️</span> Settings</a>
   </nav>
   <div class="sidebar-footer">
     <strong>Manager: Sarah K.</strong>
@@ -630,12 +640,12 @@ tr:hover td{background:#fafafa}
             <table>
               <thead><tr><th>SOP Title</th><th>Category</th><th>Last Updated</th><th>Owner</th><th>Action</th></tr></thead>
               <tbody>
-                <tr><td>Opening & Closing Procedures</td><td>Operations</td><td>12 Apr 2026</td><td>Sarah K.</td><td><button class="btn btn-secondary btn-sm">📄 View</button></td></tr>
-                <tr><td>Food Safety & Hygiene Standards</td><td>Food Safety</td><td>2 Mar 2026</td><td>Marco D.</td><td><button class="btn btn-secondary btn-sm">📄 View</button></td></tr>
-                <tr><td>Cash Handling Procedure</td><td>Finance</td><td>15 Jan 2026</td><td>Sarah K.</td><td><button class="btn btn-secondary btn-sm">📄 View</button></td></tr>
-                <tr><td>Staff Onboarding Guide</td><td>HR</td><td>5 Feb 2026</td><td>Sarah K.</td><td><button class="btn btn-secondary btn-sm">📄 View</button></td></tr>
-                <tr><td>Allergy & Dietary Protocols</td><td>Food Safety</td><td>20 Mar 2026</td><td>Marco D.</td><td><button class="btn btn-secondary btn-sm">📄 View</button></td></tr>
-                <tr><td>Customer Complaint Resolution</td><td>Service</td><td>8 Jan 2026</td><td>Sarah K.</td><td><button class="btn btn-secondary btn-sm">📄 View</button></td></tr>
+                <tr><td>Opening &amp; Closing Procedures</td><td>Operations</td><td>12 Apr 2026</td><td>Sarah K.</td><td><button class="btn btn-secondary btn-sm" onclick="viewSOP(0)">📄 View</button></td></tr>
+                <tr><td>Food Safety &amp; Hygiene Standards</td><td>Food Safety</td><td>2 Mar 2026</td><td>Marco D.</td><td><button class="btn btn-secondary btn-sm" onclick="viewSOP(1)">📄 View</button></td></tr>
+                <tr><td>Cash Handling Procedure</td><td>Finance</td><td>15 Jan 2026</td><td>Sarah K.</td><td><button class="btn btn-secondary btn-sm" onclick="viewSOP(2)">📄 View</button></td></tr>
+                <tr><td>Staff Onboarding Guide</td><td>HR</td><td>5 Feb 2026</td><td>Sarah K.</td><td><button class="btn btn-secondary btn-sm" onclick="viewSOP(3)">📄 View</button></td></tr>
+                <tr><td>Allergy &amp; Dietary Protocols</td><td>Food Safety</td><td>20 Mar 2026</td><td>Marco D.</td><td><button class="btn btn-secondary btn-sm" onclick="viewSOP(4)">📄 View</button></td></tr>
+                <tr><td>Customer Complaint Resolution</td><td>Service</td><td>8 Jan 2026</td><td>Sarah K.</td><td><button class="btn btn-secondary btn-sm" onclick="viewSOP(5)">📄 View</button></td></tr>
               </tbody>
             </table>
           </div>
@@ -1285,6 +1295,303 @@ function showAccTab(tab,btn){
   if(btn)btn.classList.add('active');
 }
 function updatePeriod(p){console.log('Period:',p);}
+// ===== SOP DATA =====
+const sopData = [
+  {
+    title: 'Opening & Closing Procedures',
+    category: 'Operations', owner: 'Sarah K.', updated: '12 Apr 2026',
+    steps: [
+      {h:'OPENING (07:00 – 09:00)', items:[
+        'Disarm alarm and unlock all entry points.',
+        'Switch on lights, HVAC, extraction fans and all kitchen equipment.',
+        'Check overnight refrigeration temperatures — log in the temperature record book. ≥4°C = escalate immediately.',
+        'Receive and sign for any morning deliveries — check against purchase order.',
+        'Ensure float is correct: R500 in till. Count and record on cash sheet.',
+        'Brief kitchen team on daily specials, 86 list, and any allergen updates.',
+        'Set all tables: linen, cutlery, glassware, condiments. Check for damage.',
+      ]},
+      {h:'CLOSING (21:30 – 22:30)', items:[
+        'Last orders announced 30 minutes before closing.',
+        'Reconcile till: print Z-report, count cash, record variance on end-of-day sheet.',
+        'Deposit cash into safe. Manager signs off.',
+        'Kitchen: sanitise all prep surfaces, label and date all perishables, store correctly.',
+        'Complete closing stock count — record in stock system.',
+        'Switch off all equipment, check all appliances are off.',
+        'Set alarm and lock all entry points. Manager keeps log.',
+      ]},
+    ]
+  },
+  {
+    title: 'Food Safety & Hygiene Standards',
+    category: 'Food Safety', owner: 'Marco D.', updated: '2 Mar 2026',
+    steps: [
+      {h:'PERSONAL HYGIENE', items:[
+        'All food handlers must wash hands: on arrival, after handling raw meat, after using the bathroom, after handling waste.',
+        'Hair must be tied back and covered with a cap or net at all times in the kitchen.',
+        'No jewellery except plain wedding bands. No nail polish or false nails.',
+        'Staff with open cuts or wounds must use blue waterproof plasters and gloves.',
+        'Any staff member with vomiting, diarrhoea or fever must be sent home immediately.',
+      ]},
+      {h:'FOOD STORAGE', items:[
+        'Raw meat stored on the BOTTOM shelf of the fridge, always.',
+        'FIFO (First In, First Out) must be strictly followed for all perishables.',
+        'All containers must be labelled with item name and date opened/prepared.',
+        'Fridges: 0–4°C. Freezers: -18°C or below. Check and log twice daily.',
+        'Dry goods stored off the floor on shelving, in sealed containers.',
+      ]},
+      {h:'PREPARATION & COOKING', items:[
+        'Use separate colour-coded chopping boards: red (raw meat), green (veg), yellow (cooked meat), blue (fish).',
+        'Core temperature for cooked chicken: ≥75°C. Use probe thermometer and sanitise between uses.',
+        'Never leave cooked food out for more than 2 hours. Cool rapidly before refrigerating.',
+      ]},
+    ]
+  },
+  {
+    title: 'Cash Handling Procedure',
+    category: 'Finance', owner: 'Sarah K.', updated: '15 Jan 2026',
+    steps: [
+      {h:'OPENING', items:[
+        'Manager counts float (R500) and records on the cash sheet — both manager and cashier sign.',
+        'Float consists of: R50×4, R20×5, R10×10, R5×10, R2×10, R1×20, coins.',
+        'Till drawer is checked for foreign objects before service.',
+      ]},
+      {h:'DURING SERVICE', items:[
+        'All transactions must be processed through the POS system — no manual sales.',
+        'Cash received: count in front of customer, place on till ledge until change given.',
+        'Never leave the till unattended and unlocked.',
+        'Voids and refunds require manager pin approval.',
+        'Petty cash: manager approval required for any amount over R50. Receipt mandatory.',
+      ]},
+      {h:'CLOSING', items:[
+        'Cashier counts till in the presence of the manager. Both sign the cash sheet.',
+        'Print Z-report from POS. POS total must match cash + card receipts.',
+        'Any variance over R20 must be investigated and documented.',
+        'Cash placed in a sealed bag with the cash sheet and locked in the safe.',
+        'Manager completes end-of-day financial report.',
+      ]},
+    ]
+  },
+  {
+    title: 'Staff Onboarding Guide',
+    category: 'HR', owner: 'Sarah K.', updated: '5 Feb 2026',
+    steps: [
+      {h:'BEFORE FIRST DAY', items:[
+        'Collect: ID copy, bank details, tax number, next-of-kin details.',
+        'Set up payroll profile. Issue uniform and PPE.',
+        'Assign a buddy/mentor for the first 2 weeks.',
+        'Share the staff handbook and get signed acknowledgement.',
+      ]},
+      {h:'FIRST WEEK', items:[
+        'Tour of the full premises: kitchen, storage, bathrooms, emergency exits.',
+        'Walk through all SOPs relevant to their role.',
+        'Shadow experienced staff for the first 3 shifts before working independently.',
+        'Complete food safety & allergen awareness training.',
+        'Set performance expectations and 30-day review date.',
+      ]},
+      {h:'30-DAY REVIEW', items:[
+        'Manager meets with new staff member to discuss performance.',
+        'Identify any gaps in knowledge or skill — create development plan.',
+        'Confirm probation extension or successful completion.',
+        'Collect feedback from new staff member on the onboarding experience.',
+      ]},
+    ]
+  },
+  {
+    title: 'Allergy & Dietary Protocols',
+    category: 'Food Safety', owner: 'Marco D.', updated: '20 Mar 2026',
+    steps: [
+      {h:'FRONT-OF-HOUSE', items:[
+        'All staff must know the Big 14 allergens: celery, cereals, crustaceans, eggs, fish, lupin, milk, molluscs, mustard, nuts, peanuts, sesame, soya, sulphites.',
+        'When a guest declares an allergy: take it seriously every time, no exceptions.',
+        'Pass the allergy information to the kitchen VERBALLY and via the printed ticket.',
+        'Never guess — if unsure, check with the chef before confirming to the guest.',
+      ]},
+      {h:'KITCHEN', items:[
+        'Allergy orders are prepared separately, using clean utensils and surfaces.',
+        'Chef to plate the allergy dish personally and mark with an allergen flag.',
+        'Cross-contamination awareness: shared fryers, shared surfaces, shared tongs.',
+        'Update the allergen matrix on the notice board whenever the menu changes.',
+      ]},
+      {h:'DOCUMENTATION', items:[
+        'Any allergic reaction incident must be recorded in the incident log immediately.',
+        'Notify management and follow the emergency response protocol if anaphylaxis occurs.',
+        'Keep an up-to-date allergen matrix for every menu item. Review monthly.',
+      ]},
+    ]
+  },
+  {
+    title: 'Customer Complaint Resolution',
+    category: 'Service', owner: 'Sarah K.', updated: '8 Jan 2026',
+    steps: [
+      {h:'IMMEDIATE RESPONSE', items:[
+        'Listen fully without interrupting. Thank the customer for raising the issue.',
+        'Apologise sincerely — even if you believe the complaint is unfounded.',
+        'Never argue or become defensive. Stay calm and professional.',
+        'If a food complaint: remove the dish immediately and bring to the chef.',
+      ]},
+      {h:'RESOLUTION', items:[
+        'Empower staff to offer: complimentary drink, replacement dish, or discount up to 20% without manager approval.',
+        'If the guest remains unhappy, escalate to the manager immediately.',
+        'Manager may offer up to 50% discount or full meal comp in severe cases.',
+        'Always follow up with the table after the resolution to ensure satisfaction.',
+      ]},
+      {h:'DOCUMENTATION', items:[
+        'Record all complaints in the complaints log: date, table, nature of complaint, resolution, staff involved.',
+        'Review complaints log weekly in management meetings.',
+        'Recurring complaints must be escalated to a process improvement discussion.',
+        'Respond to any online reviews (Google, TripAdvisor) within 48 hours.',
+      ]},
+    ]
+  },
+];
+
+function viewSOP(idx) {
+  const sop = sopData[idx];
+  document.getElementById('sop-modal-title').textContent = sop.title;
+  let html = `<div style="display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+    <span class="badge blue">📁 ${sop.category}</span>
+    <span class="badge">👤 ${sop.owner}</span>
+    <span class="badge">📅 Updated ${sop.updated}</span>
+  </div>`;
+  sop.steps.forEach(section => {
+    html += `<div style="margin-bottom:20px">
+      <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #f1f5f9">${section.h}</div>
+      <ol style="padding-left:20px;display:flex;flex-direction:column;gap:8px">
+        ${section.items.map(item => `<li style="font-size:13.5px;color:#374151;line-height:1.5">${item}</li>`).join('')}
+      </ol>
+    </div>`;
+  });
+  document.getElementById('sop-modal-body').innerHTML = html;
+  openModal('modal-sop');
+}
+
+// ===== THEMES =====
+const themes = [
+  {name:'🍊 Ember Orange', accent:'#f97316', accentDark:'#ea6c0a', sidebar:'#1e293b', sidebarActive:'#253348', sidebarBorder:'#334155', desc:'Default — bold & professional'},
+  {name:'🌿 Forest Green', accent:'#16a34a', accentDark:'#15803d', sidebar:'#14532d', sidebarActive:'#166534', sidebarBorder:'#15803d', desc:'Natural, calm, earthy'},
+  {name:'🍷 Burgundy', accent:'#be123c', accentDark:'#9f1239', sidebar:'#4c0519', sidebarActive:'#881337', sidebarBorder:'#9f1239', desc:'Upscale & sophisticated'},
+  {name:'🌊 Ocean Blue', accent:'#0284c7', accentDark:'#0369a1', sidebar:'#0c4a6e', sidebarActive:'#075985', sidebarBorder:'#0369a1', desc:'Cool, trustworthy, clean'},
+  {name:'🫐 Midnight Purple', accent:'#7c3aed', accentDark:'#6d28d9', sidebar:'#2e1065', sidebarActive:'#4c1d95', sidebarBorder:'#6d28d9', desc:'Creative & distinctive'},
+  {name:'🌙 Slate Dark', accent:'#64748b', accentDark:'#475569', sidebar:'#0f172a', sidebarActive:'#1e293b', sidebarBorder:'#1e293b', desc:'Minimal, neutral, sleek'},
+];
+
+let activeTheme = 0;
+
+function renderThemes() {
+  const grid = document.getElementById('theme-grid');
+  if (!grid) return;
+  grid.innerHTML = themes.map((t,i) => `
+    <div onclick="applyTheme(${i})" style="border:2px solid ${i===activeTheme?t.accent:'#e2e8f0'};border-radius:12px;padding:14px;cursor:pointer;transition:all .2s;background:${i===activeTheme?'#fafafa':'#fff'}">
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <div style="width:28px;height:28px;background:${t.sidebar};border-radius:6px"></div>
+        <div style="width:28px;height:28px;background:${t.accent};border-radius:6px"></div>
+      </div>
+      <div style="font-weight:700;font-size:13px;margin-bottom:2px">${t.name}</div>
+      <div style="font-size:11px;color:#94a3b8">${t.desc}</div>
+      ${i===activeTheme?`<div style="font-size:11px;color:${t.accent};font-weight:700;margin-top:6px">✓ Active</div>`:''}
+    </div>
+  `).join('');
+}
+
+function applyTheme(i) {
+  const t = themes[i];
+  activeTheme = i;
+  const root = document.documentElement;
+  root.style.setProperty('--accent', t.accent);
+  root.style.setProperty('--accent-dark', t.accentDark);
+  root.style.setProperty('--sidebar-bg', t.sidebar);
+  root.style.setProperty('--sidebar-active', t.sidebarActive);
+  root.style.setProperty('--sidebar-border', t.sidebarBorder);
+  document.getElementById('custom-accent').value = t.accent;
+  document.getElementById('custom-sidebar').value = t.sidebar;
+  renderThemes();
+}
+
+function applyCustom() {
+  const accent = document.getElementById('custom-accent').value;
+  const sidebar = document.getElementById('custom-sidebar').value;
+  activeTheme = -1;
+  const root = document.documentElement;
+  root.style.setProperty('--accent', accent);
+  root.style.setProperty('--accent-dark', accent);
+  root.style.setProperty('--sidebar-bg', sidebar);
+  root.style.setProperty('--sidebar-active', sidebar + 'cc');
+  renderThemes();
+}
+
+// Extend showPage to handle settings
+const _origShowPage = showPage;
+showPage = function(page, el) {
+  _origShowPage(page, el);
+  if (page === 'settings') renderThemes();
+};
+
 </script>
+
+<!-- ===== SETTINGS PAGE ===== -->
+<div id="page-settings" class="page">
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-header"><h2>🎨 Theme & Appearance</h2></div>
+    <div class="card-body">
+      <p style="font-size:13px;color:#64748b;margin-bottom:18px">Choose a colour theme for your RestaurantOS. Each franchise store can have its own brand colours.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px" id="theme-grid"></div>
+      <div style="margin-top:24px">
+        <div class="form-group" style="max-width:320px">
+          <label>Custom Accent Colour</label>
+          <div style="display:flex;gap:10px;align-items:center">
+            <input type="color" id="custom-accent" value="#f97316" style="width:48px;height:38px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+            <input type="color" id="custom-sidebar" value="#1e293b" style="width:48px;height:38px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+            <span style="font-size:12px;color:#64748b">Accent &nbsp;|&nbsp; Sidebar</span>
+            <button class="btn btn-primary btn-sm" onclick="applyCustom()">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-header"><h2>🏪 Restaurant Profile</h2></div>
+    <div class="card-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Restaurant Name</label><input type="text" value="The Grand Plate"></div>
+        <div class="form-group"><label>Branch Name</label><input type="text" value="Main Branch"></div>
+        <div class="form-group"><label>Manager Name</label><input type="text" value="Sarah K."></div>
+        <div class="form-group"><label>Currency Symbol</label><select><option selected>R (ZAR)</option><option>$ (USD)</option><option>€ (EUR)</option><option>£ (GBP)</option></select></div>
+        <div class="form-group"><label>Opening Time</label><input type="time" value="07:00"></div>
+        <div class="form-group"><label>Closing Time</label><input type="time" value="22:00"></div>
+      </div>
+      <div style="margin-top:14px;display:flex;justify-content:flex-end">
+        <button class="btn btn-primary" onclick="alert('Profile saved!')">💾 Save Changes</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>🔔 Notifications & Alerts</h2></div>
+    <div class="card-body">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <label style="display:flex;align-items:center;gap:12px;font-size:13.5px;cursor:pointer"><input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--accent)"> Low stock alerts (when item falls below par level)</label>
+        <label style="display:flex;align-items:center;gap:12px;font-size:13.5px;cursor:pointer"><input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--accent)"> Leave request notifications</label>
+        <label style="display:flex;align-items:center;gap:12px;font-size:13.5px;cursor:pointer"><input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--accent)"> Supplier order status updates</label>
+        <label style="display:flex;align-items:center;gap:12px;font-size:13.5px;cursor:pointer"><input type="checkbox" style="width:16px;height:16px;accent-color:var(--accent)"> Daily revenue summary email</label>
+        <label style="display:flex;align-items:center;gap:12px;font-size:13.5px;cursor:pointer"><input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--accent)"> Payroll due date reminders</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SOP MODAL ===== -->
+<div class="modal-overlay" id="modal-sop">
+  <div class="modal" style="width:620px;max-height:90vh">
+    <div class="modal-header">
+      <h3 id="sop-modal-title">SOP</h3>
+      <button class="modal-close" onclick="closeModal('modal-sop')">✕</button>
+    </div>
+    <div class="modal-body" id="sop-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-sop')">Close</button>
+      <button class="btn btn-primary" onclick="alert('SOP printed / exported to PDF!')">🖨 Print / Export</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
